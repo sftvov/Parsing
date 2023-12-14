@@ -1,6 +1,7 @@
 const axios = require('axios'); // Подключение модуля axios для скачивания страницы
+const { log } = require('console');
 const fs = require('fs'); // Подключение встроенного в Node.js модуля fs для работы с файловой системой
-const link = 'https://store.tildacdn.com/api/getproductslist/?storepartuid=433685419311&recid=236139262&c=1687441112429&getparts=true&getoptions=true&slice=1&sort;5Bcreated;5D=desc&size=66';
+const link = 'https://store.tildacdn.com/api/getproductslist/?storepartuid=433685419311&recid=236139262&c=1687441112429&getparts=true&getoptions=true&slice=1&sort;5Bcreated;5D=desc&size=64';
 
 function parsing() {
 	axios
@@ -24,9 +25,16 @@ function parsing() {
 				data[row].push('');
 				data[row].push('');
 				data[row].push(JSON.parse(products[i].gallery).map((o) => o.img));
-				data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/(catalog\/)?(\w*)\//)[2]);
-				let attr1, attr2;
-				if (products[i].hasOwnProperty('json_options')) {
+				let url = replaceAll(products[i].url, 'catalog/', '');
+				url = replaceAll(url, 'tproduct/', '');
+				console.log(url);
+				console.log(url.match(/https:\/\/xvoybrand\.ru\/?([\w-]*)\//)[1]);
+				console.log(i);
+				// data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/(catalog\/)?(\w*)\//)[2]);
+				data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/?(\w*)\//)[1]);
+				let attr1 = {};
+				let attr2 = {};
+				if (products[i].hasOwnProperty('json_options') && products[i].json_options[0]) {
 					attr1 = JSON.parse(products[i].json_options)[0];
 					data[row].push(attr1.title);
 					data[row].push(attr1.values);
