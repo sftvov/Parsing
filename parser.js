@@ -10,7 +10,7 @@ function parsing() {
 			let data = [];
 			const products = response.data.products;
 			let row = 0;
-			console.log(products[0]);
+			// console.log(products[0]);
 			for (let i = 0; i < products.length; i++) {
 				data[row] = [];
 				data[row].push(products[i].uid);
@@ -27,10 +27,7 @@ function parsing() {
 				data[row].push(JSON.parse(products[i].gallery).map((o) => o.img));
 				let url = replaceAll(products[i].url, 'catalog/', '');
 				url = replaceAll(url, 'tproduct/', '');
-				console.log(url);
-				console.log(url.match(/https:\/\/xvoybrand\.ru\/?([\w-]*)\//)[1]);
 				console.log(i);
-				// data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/(catalog\/)?(\w*)\//)[2]);
 				data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/?(\w*)\//)[1]);
 				let attr1 = {};
 				let attr2 = {};
@@ -81,9 +78,11 @@ function parsing() {
 						data[num].push(attr1.title);
 						data[num].push(ed[i2][attr1.title]);
 						data[num].push('');
+						data[num].push(1);
 						data[num].push(attr2.title);
 						data[num].push(ed[i2][attr2.title]);
 						data[num].push('');
+						data[num].push(1);
 						data[num].push('variation');
 						data[num].push(ed[i2].quantity);
 					}
@@ -93,7 +92,7 @@ function parsing() {
 			return data;
 		})
 		.then((response) => {
-			let csv = 'SKU%Parent%Name%Short description%Description%Sale price%Regular price%Images%Categories%Attribute 1 name%Attribute 1 value(s)%Attribute 1 default%Attribute 2 name%Attribute 2 value(s)%Attribute 2 default%Type%Stock\n';
+			let csv = 'SKU%Parent%Name%Short description%Description%Sale price%Regular price%Images%Categories%Attribute 1 name%Attribute 1 value(s)%Attribute 1 default%Attribute 1 global%Attribute 2 name%Attribute 2 value(s)%Attribute 2 default%Attribute 2 global%Type%Stock\n';
 			csv += response.map((row) => row.join('%')).join('\n');
 			fs.writeFileSync('some.csv', csv);
 		});
