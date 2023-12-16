@@ -6,7 +6,7 @@ function renameCats(str) {
 	const entries = Object.entries(obj);
 
 	for (const name of entries) {
-		if (str === name) str = keys.find((key) => entries[key] === str);
+		if (str === name[1]) str = name[0];
 	}
 
 	return str;
