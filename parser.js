@@ -28,7 +28,7 @@ function parsing() {
 				let url = replaceAll(products[i].url, 'catalog/', '');
 				url = replaceAll(url, 'tproduct/', '');
 				console.log(i);
-				data[row].push(products[i].url.match(/https:\/\/xvoybrand\.ru\/?(\w*)\//)[1]);
+				data[row].push(url.match(/https:\/\/xvoybrand\.ru\/?(\w*)\//)[1]);
 				let attr1 = {};
 				let attr2 = {};
 				if (products[i].hasOwnProperty('json_options') && products[i].json_options[0]) {
