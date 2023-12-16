@@ -11,33 +11,33 @@ function parsing() {
 			const products = response.data.products;
 			let row = 0;
 			// console.log(products[0]);
-			for (let i = 0; i < products.length; i++) {
+			for (let name = 0; name < products.length; name++) {
 				data[row] = [];
-				data[row].push(products[i].uid);
+				data[row].push(products[name].uid);
 				data[row].push('');
-				data[row].push(products[i].title);
-				data[row].push(products[i].descr);
+				data[row].push(products[name].title);
+				data[row].push(products[name].descr);
 				function replaceAll(string, search, replace) {
 					return string.split(search).join(replace);
 				}
-				const text = replaceAll(products[i].text, '%', ' процентов');
+				const text = replaceAll(products[name].text, '%', ' процентов');
 				data[row].push(text);
 				data[row].push('');
 				data[row].push('');
-				data[row].push(JSON.parse(products[i].gallery).map((o) => o.img));
-				let url = replaceAll(products[i].url, 'catalog/', '');
+				data[row].push(JSON.parse(products[name].gallery).map((o) => o.img));
+				let url = replaceAll(products[name].url, 'catalog/', '');
 				url = replaceAll(url, 'tproduct/', '');
-				console.log(i);
+				console.log(name);
 				data[row].push(url.match(/https:\/\/xvoybrand\.ru\/?(\w*)\//)[1]);
 				let attr1 = {};
 				let attr2 = {};
-				if (products[i].hasOwnProperty('json_options') && products[i].json_options[0]) {
-					attr1 = JSON.parse(products[i].json_options)[0];
+				if (products[name].hasOwnProperty('json_options') && products[name].json_options[0]) {
+					attr1 = JSON.parse(products[name].json_options)[0];
 					data[row].push(attr1.title);
 					data[row].push(attr1.values);
 					data[row].push(attr1.values[0]);
-					if (JSON.parse(products[i].json_options)[1]) {
-						attr2 = JSON.parse(products[i].json_options)[1];
+					if (JSON.parse(products[name].json_options)[1]) {
+						attr2 = JSON.parse(products[name].json_options)[1];
 						data[row].push(attr2.title);
 						data[row].push(attr2.values);
 						data[row].push(attr2.values[0]);
@@ -53,16 +53,16 @@ function parsing() {
 					data[row].push('');
 					data[row].push('');
 				}
-				if (products[i].editions) {
+				if (products[name].editions) {
 					data[row].push('variable');
 					data[row].push('');
 					row++;
-					let ed = products[i].editions;
+					let ed = products[name].editions;
 					for (let i2 = 0; i2 < ed.length; i2++) {
 						let num = row + i2;
 						data[num] = [];
 						data[num].push(ed[i2].uid);
-						data[num].push(products[i].uid);
+						data[num].push(products[name].uid);
 						data[num].push('');
 						data[num].push('');
 						data[num].push('');
@@ -100,16 +100,3 @@ function parsing() {
 }
 
 parsing(); // Запуск
-
-
-function renameCats(str) {
-	obj = {
-		'Худи': 'hudi',
-	}
-
-	for (const i of obj) {
-		if(str === i) str = 
-	}
-
-	return str;
-}
