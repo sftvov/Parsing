@@ -100,3 +100,16 @@ function parsing() {
 }
 
 parsing(); // Запуск
+
+
+function renameCats(str) {
+	obj = {
+		'Худи': 'hudi',
+	}
+
+	for (const i of obj) {
+		if(str === i) str = 
+	}
+
+	return str;
+}
