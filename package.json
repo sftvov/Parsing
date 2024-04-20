@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "axios": "^1.4.0",
-    "ffmpeg": "^0.0.4"
+    "ffmpeg": "^0.0.4",
+    "jsdom": "^24.0.0"
   }
 }
