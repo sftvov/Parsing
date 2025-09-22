@@ -2,13 +2,15 @@ const axios = require('axios');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
-// Базовый URL без параметров
-const baseUrl = 'https://icatalog.expocentr.ru/ru/exhibitions/b67ac09b-40d1-11ee-80ce-a0d3c1fab97f';
-
 // Параметры
 const urlParams = {
-    hallid: '42',
+    // hallid: '',
 };
+
+const page = 'b5cf5aae-3c26-11ee-80ce-a0d3c1fab97f';
+
+// Базовый URL без параметров
+const baseUrl = 'https://icatalog.expocentr.ru/ru/exhibitions/' + page;
 
 // Формируем полный URL
 function buildApiUrl(baseUrl, params) {
@@ -17,7 +19,7 @@ function buildApiUrl(baseUrl, params) {
 }
 
 const MAIN_URL = buildApiUrl(baseUrl, urlParams);
-const OUTPUT_FILENAME = `icatalog-expocentr_${urlParams.hallid}.csv`;
+const OUTPUT_FILENAME = `icatalog-expocentr_${page}_${urlParams.hallid}.csv`;
 const USE_ANSI_ENCODING = true;
 
 async function parseCompanies() {
