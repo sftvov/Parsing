@@ -4,10 +4,10 @@ const { JSDOM } = require('jsdom');
 
 // Параметры
 const urlParams = {
-    // hallid: '',
+    hallid: '49',
 };
 
-const page = 'b5cf5aae-3c26-11ee-80ce-a0d3c1fab97f';
+const page = 'b67ac0af-40d1-11ee-80ce-a0d3c1fab97f';
 
 // Базовый URL без параметров
 const baseUrl = 'https://icatalog.expocentr.ru/ru/exhibitions/' + page;

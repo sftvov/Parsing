@@ -1,0 +1,411 @@
+КАТЕГОРИИ С ПОДКАТЕГОРИЯМИ
+==================================================
+
+1. Управление производством
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=170
+   Подкатегории (6):
+     1. Руководителям производств
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=69
+     2. Управление цехом
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=163
+     3. Конструкторам
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=164
+     4. Технологам
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=165
+     5. Обслуживание оборудования
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=166
+     6. Автоматизация
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=167
+
+2. Материалы, технологии, оборудование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=100
+   Подкатегории (0):
+
+3. Бережливое производство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=119
+   Подкатегории (0):
+
+4. Гособоронзаказ
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=126
+   Подкатегории (0):
+
+5. Импортозамещение
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=144
+   Подкатегории (0):
+
+6. Управление качеством
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=52
+   Подкатегории (0):
+
+7. Стандартизация. Метрология
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=36
+   Подкатегории (0):
+
+8. Закупки. Снабжение. Склад
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=154
+   Подкатегории (3):
+     1. Закупки и снабжение
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=35
+     2. Госзакупки
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=152
+     3. Склад
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=153
+
+9. Транспорт
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=139
+   Подкатегории (3):
+     1. ЖД перевозки
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=84
+     2. Автотранспорт
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=85
+     3. Транспортная логистика
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=70
+
+10. Интеллектуальная собственность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=31
+   Подкатегории (0):
+
+11. Управление инновациями
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=128
+   Подкатегории (0):
+
+12. Легкая промышленность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=121
+   Подкатегории (0):
+
+13. Экономическая и юридическая
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=145
+   Подкатегории (0):
+
+14. Кадровые риски
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=146
+   Подкатегории (0):
+
+15. Пожарная безопасность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=147
+   Подкатегории (0):
+
+16. Безопасность систем управления
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=148
+   Подкатегории (0):
+
+17. Промышленная безопасность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=149
+   Подкатегории (0):
+
+18. Экологическая безопасность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=150
+   Подкатегории (0):
+
+19. Информационная безопасность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=151
+   Подкатегории (0):
+
+20. Охрана труда
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=37
+   Подкатегории (0):
+
+21. Комплексная безопасность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=50
+   Подкатегории (0):
+
+22. Энергосбережение
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=118
+   Подкатегории (0):
+
+23. Экономика и инвестиции в энергетике
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=116
+   Подкатегории (0):
+
+24. Правовое регулирование в энергетике
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=115
+   Подкатегории (0):
+
+25. Эксплуатация объектов ТЭК
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=117
+   Подкатегории (0):
+
+26. Проектирование. Изыскания
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=20
+   Подкатегории (0):
+
+27. Строительство: организация и управление
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=88
+   Подкатегории (0):
+
+28. Инженерные сети: проектирование и строительство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=140
+   Подкатегории (5):
+     1. Слаботочные системы
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=110
+     2. Газоснабжение
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=111
+     3. Водоснабжение и водоотведение
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=112
+     4. Теплоснабжение и вентиляция
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=113
+     5. Электроснабжение
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=114
+
+29. Строительные материалы и технологии
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=71
+   Подкатегории (0):
+
+30. Дорожное строительство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=72
+   Подкатегории (0):
+
+31. Экономика строительства
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=91
+   Подкатегории (0):
+
+32. Сметное дело
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=130
+   Подкатегории (0):
+
+33. Правовое регулирование строительной деятельности
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=129
+   Подкатегории (0):
+
+34. ЖКХ. Городское хозяйство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=92
+   Подкатегории (0):
+
+35. Ремонт и эксплуатация зданий и сооружений
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=93
+   Подкатегории (0):
+
+36. Управление и эксплуатация недвижимости
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=23
+   Подкатегории (0):
+
+37. Экология
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=38
+   Подкатегории (0):
+
+38. Недропользование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=155
+   Подкатегории (0):
+
+39. Землепользование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=54
+   Подкатегории (0):
+
+40. Трудовое право. Кадровое делопроизводство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=161
+   Подкатегории (2):
+     1. Трудовое право
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=33
+     2. Кадровое делопроизводство
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=157
+
+41. HR-технологии. Управление персоналом
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=162
+   Подкатегории (4):
+     1. Управление персоналом
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=105
+     2. HR-технологии
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=158
+     3. Оценка и обучение персонала
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=159
+     4. Мотивация персонала
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=160
+
+42. Работа с руководителем
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=107
+   Подкатегории (0):
+
+43. Делопроизводство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=108
+   Подкатегории (0):
+
+44. Архивы
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=127
+   Подкатегории (0):
+
+45. Общий менеджмент
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=30
+   Подкатегории (0):
+
+46. Специальный менеджмент
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=133
+   Подкатегории (0):
+
+47. Управление административно-хозяйственной деятельностью
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=132
+   Подкатегории (0):
+
+48. Спортивный менеджмент
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=48
+   Подкатегории (0):
+
+49. Маркетинг. Продажи
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=124
+   Подкатегории (0):
+
+50. Реклама. PR
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=134
+   Подкатегории (0):
+
+51. Налогообложение
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=99
+   Подкатегории (0):
+
+52. Бухгалтерский учет
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=4
+   Подкатегории (3):
+     1. Бухгалтерский учет в коммерческих организациях
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=131
+     2. Бюджетный учет
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=68
+     3. Отраслевой учет
+        https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?column=101
+
+53. Финансовый менеджмент. Экономика
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=2
+   Подкатегории (0):
+
+54. Оплата труда и мотивация
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=3
+   Подкатегории (0):
+
+55. Нормирование труда
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=109
+   Подкатегории (0):
+
+56. Корпоративное право
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=104
+   Подкатегории (0):
+
+57. Гражданское и процессуальное право
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=96
+   Подкатегории (0):
+
+58. Другие отрасли права
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=98
+   Подкатегории (0):
+
+59. Право по виду деятельности
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=97
+   Подкатегории (0):
+
+60. Договорная работа
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=95
+   Подкатегории (0):
+
+61. Внешнеэкономическая деятельность
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=6
+   Подкатегории (0):
+
+62. Управление ИТ-инфраструктурой
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=26
+   Подкатегории (0):
+
+63. Программное обеспечение
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=137
+   Подкатегории (0):
+
+64. Кибербезопасность и защита данных
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=156
+   Подкатегории (0):
+
+65. Проектирование и строительство объектов связи
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=27
+   Подкатегории (0):
+
+66. Организация деятельности учреждений и органов власти
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=57
+   Подкатегории (0):
+
+67. Бюджетное финансирование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=58
+   Подкатегории (0):
+
+68. Некоммерческие организации
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=9
+   Подкатегории (0):
+
+69. Организация работы органов социальной защиты населения
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=83
+   Подкатегории (0):
+
+70. Технологии социального обслуживания
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=82
+   Подкатегории (0):
+
+71. Организация здравоохранения
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=79
+   Подкатегории (0):
+
+72. Право в здравоохранении
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=80
+   Подкатегории (0):
+
+73. Экономика и финансы в здравоохранении
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=81
+   Подкатегории (0):
+
+74. Высшее образование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=16
+   Подкатегории (0):
+
+75. Среднее профессиональное образование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=63
+   Подкатегории (0):
+
+76. Дополнительное профессиональное образование
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=122
+   Подкатегории (0):
+
+77. Управление в сфере культуры
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=123
+   Подкатегории (0):
+
+78. Театры. ДК
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=76
+   Подкатегории (0):
+
+79. Музеи. Библиотеки
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=75
+   Подкатегории (0):
+
+80. Организация культурно-досуговых мероприятий
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=102
+   Подкатегории (0):
+
+81. Технологии: звук, свет, сцена
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=78
+   Подкатегории (0):
+
+82. СМИ, редакция
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=19
+   Подкатегории (0):
+
+83. Дизайн
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=135
+   Подкатегории (0):
+
+84. Переводы
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=17
+   Подкатегории (0):
+
+85. Пищевое производство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=120
+   Подкатегории (0):
+
+86. Сельское хозяйство
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=168
+   Подкатегории (0):
+
+87. Гостиницы
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=47
+   Подкатегории (0):
+
+88. Общепит
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=46
+   Подкатегории (0):
+
+89. ХАССП и контроль качества
+   URL: https://www.cntiprogress.ru/seminarsforcolumn/default.aspx?action=1&column=136
+   Подкатегории (0):
+
