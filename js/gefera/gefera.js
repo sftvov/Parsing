@@ -3,7 +3,7 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // НАСТРОЙКИ ДЛЯ НОВОГО САЙТА
-const MAIN_URL = 'https://online.gefera.ru/info/TCM25/catalog/?count=ALL';
+const MAIN_URL = 'https://online.gefera.ru/info/TT25/catalog/?count=ALL';
 const COMPANY_LINK_SELECTOR = '.info-card.hoverable a';
 const CONTENT_SELECTOR = '.firm-detail-page';
 const OUTPUT_FILENAME = 'gefera-tcm25.csv';
