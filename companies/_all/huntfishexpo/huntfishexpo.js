@@ -3,7 +3,7 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // НАСТРОЙКИ ДЛЯ НОВОГО САЙТА
-const MAIN_URL = 'https://reg.huntfishexpo.ru/e-catalogue/2025/view';
+const MAIN_URL = 'https://reg.huntfishexpo.ru/e-catalogue/2026/view';
 const OUTPUT_FILENAME = 'huntfish-expo.csv';
 const USE_ANSI_ENCODING = true;
 
@@ -65,10 +65,8 @@ async function parseCompanies() {
                 ident = logoMatch[1];
             }
             
-            const exhMatch = companyData.logo.match(/\/crocus\/(\d+)\//);
-            if (exhMatch) {
-                idExh = exhMatch[1];
-            }
+            
+            idExh = 37;
             
             // Формируем URL компании
             const companyUrl = `https://reg.huntfishexpo.ru/e-catalogue/2025/view?idExh=${idExh}&action=detail&ident=${ident}`;
