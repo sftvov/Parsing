@@ -32,13 +32,17 @@ const CONFIG = {
 };
 
 
+const TEXTIL_LEG_PROM = {
+  BASE_URL: 'https://lk.textilexpo.ru/expositions/exposition/6707',
+  OUTPUT_FILENAME: 'TEXTIL_LEG_PROM-65.csv',
+};
+
+Object.assign(CONFIG, TEXTIL_LEG_PROM);
+
 const TEXTILE_SALON2026 = {
   BASE_URL: 'https://catalog.textile-salon.ru/expositions/exposition/6710.html',
   OUTPUT_FILENAME: 'TEXTILE-SALON2026.csv',
 };
-
-Object.assign(CONFIG, TEXTILE_SALON2026);
-
 const CLIMATEXPO2026 = {
   BASE_URL: 'https://catalog.climatexpo.ru/expositions/exposition/6614',
   OUTPUT_FILENAME: 'CLIMATEXPO2026.csv',

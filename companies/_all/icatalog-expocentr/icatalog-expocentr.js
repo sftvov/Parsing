@@ -4,10 +4,10 @@ const { JSDOM } = require('jsdom');
 
 // Параметры
 const urlParams = {
-    hallid: '56',
+    hallid: '53',
 };
 
-const page = 'b67ac0c5-40d1-11ee-80ce-a0d3c1fab97f';
+const page = '190a3ab8-1050-11f0-80ce-a0d3c1fab97f';
 
 // Базовый URL без параметров
 const baseUrl = 'https://icatalog.expocentr.ru/ru/exhibitions/' + page;
@@ -18,8 +18,11 @@ function buildApiUrl(baseUrl, params) {
     return `${baseUrl}?${queryParams}`;
 }
 
-const MAIN_URL = buildApiUrl(baseUrl, urlParams);
-const OUTPUT_FILENAME = `icatalog-expocentr_${page}_${urlParams.hallid}.csv`;
+const MAIN_URL = Object.keys(urlParams).length > 0 ? buildApiUrl(baseUrl, urlParams) : baseUrl;
+const valuesStr = Object.values(urlParams).join('_');
+const OUTPUT_FILENAME = valuesStr.length > 0 
+    ? `icatalog-expocentr_${page}_${valuesStr}.csv` 
+    : `icatalog-expocentr_${page}.csv`;
 const USE_ANSI_ENCODING = true;
 
 async function parseCompanies() {
@@ -44,10 +47,10 @@ async function parseCompanies() {
             return;
         }
         
-        // Подготовка данных для CSV
-        let csvData = 'Ссылка;Название;Сайт;Телефон;Email\n';
+        // Подготовка данных для CSV (ДОБАВЛЕН СТОЛБЕЦ "Рубрики")
+        let csvData = 'Ссылка;Название;Сайт;Телефон;Email;Рубрики\n';
         
-        // Обрабатываем каждую ссылку (ограничиваем 3 для теста)
+        // Обрабатываем каждую ссылку
         for (let i = 0; i < companyLinks.length; i++) {
             const linkElement = companyLinks[i];
             const companyUrl = linkElement.href;
@@ -76,6 +79,7 @@ async function parseCompanies() {
                 let site = '';
                 let email = '';
                 let phone = '';
+                let categories = ''; // НОВАЯ ПЕРЕМЕННАЯ для рубрик
                 
                 // Ищем все dt элементы
                 const dtElements = companyDocument.querySelectorAll('dt');
@@ -113,19 +117,29 @@ async function parseCompanies() {
                     }
                 }
                 
-                // Добавляем данные в CSV
-                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"${site.replace(/"/g, '""')}";"${phone.replace(/"/g, '""')}";"${email.replace(/"/g, '""')}"\n`;
+                // === НОВЫЙ БЛОК: ПАРСИНГ РУБРИК (ТОЛЬКО ПЕРВАЯ) ===
+                const categoryElement = companyDocument.querySelector('dd.category');
+
+                if (categoryElement) {
+                    categories = categoryElement.textContent.trim().replace(/\s+/g, ' ');
+                    console.log(`  Рубрики найдены`);
+                } else {
+                    console.log('  Рубрики не найдены');
+                }
+                
+                // Добавляем данные в CSV (ДОБАВЛЕН СТОЛБЕЦ categories)
+                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"${site.replace(/"/g, '""')}";"${phone.replace(/"/g, '""')}";"${email.replace(/"/g, '""')}";"${categories.replace(/"/g, '""')}"\n`;
                 
                 // Выводим отладочную информацию
-                console.log(`  Найдено: Сайт: ${site || 'нет'}, Телефон: ${phone || 'нет'}, Email: ${email || 'нет'}`);
+                console.log(`  Найдено: Сайт: ${site || 'нет'}, Телефон: ${phone || 'нет'}, Email: ${email || 'нет'}, Рубрики: ${categories ? categories : 'нет'}`);
                 
                 // Небольшая задержка между запросами
                 await delay(2000);
                 
             } catch (error) {
                 console.error(`Ошибка при обработке ${companyUrl}:`, error.message);
-                // Добавляем строку с ошибкой
-                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"ОШИБКА";"ОШИБКА";"ОШИБКА"\n`;
+                // Добавляем строку с ошибкой (ДОБАВЛЕН ПУСТОЙ СТОЛБЕЦ ДЛЯ РУБРИК)
+                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"ОШИБКА";"ОШИБКА";"ОШИБКА";""\n`;
             }
         }
         
