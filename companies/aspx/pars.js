@@ -5,9 +5,9 @@ const iconv = require('iconv-lite');
 // КОНФИГУРАЦИЯ ПАРСЕРА
 const CONFIG = {
   // === НАСТРОЙКИ ВЫСТАВКИ (меняются для каждой) ===
-  name: 'CleanExpo Moscow',                          // Название для отображения
-  baseUrl: 'https://www.cleanexpo-moscow.ru/ru-RU/about/exhibitor-list/exhibitorpopup.aspx?id=',
-  mainPageUrl: 'https://www.cleanexpo-moscow.ru/ru-RU/about/exhibitor-list.aspx',
+  name: 'ingred',                          // Название для отображения
+  baseUrl: 'https://new.ingred.ru/ru-RU/about/exhibitor-list/exhibitorpopup.aspx?id=',
+  mainPageUrl: 'https://new.ingred.ru/ru-RU/about/exhibitor-list.aspx',
   
   // === НАСТРОЙКИ ПАРСИНГА ===
   responseType: 'json',                               // 'json', 'jsonp', 'html'
@@ -16,6 +16,7 @@ const CONFIG = {
   emailField: 'Email',                                // Поле с email
   siteField: 'Site',                                  // Поле с сайтом
   phoneField: null,                                   // Поле с телефоном (null если нет)
+  countryField: 'Country',                            // Поле со страной
   
   // Для HTML парсинга (если responseType = 'html')
   htmlSelector: null,                                 // CSS селектор для блока с данными
@@ -23,6 +24,7 @@ const CONFIG = {
   emailSelector: null,                                // Селектор для email
   siteSelector: null,                                 // Селектор для сайта
   phoneSelector: null,                                // Селектор для телефона
+  countrySelector: null,                              // Селектор для страны
   
   // === ТЕХНИЧЕСКИЕ НАСТРОЙКИ ===
   delayBetweenRequests: 1000,
@@ -37,10 +39,22 @@ const CONFIG = {
 
 // КОНФИГУРАЦИИ ДЛЯ РАЗНЫХ ВЫСТАВОК
 const EXPO_CONFIGS = {
-  // CleanExpo Moscow
+  // ingred
+  ingred: {
+    name: 'ingred',                         
+    baseUrl: 'https://new.ingred.ru/ru-RU/about/exhibitor-list/exhibitorpopup.aspx?id=',
+    mainPageUrl: 'https://new.ingred.ru/ru-RU/about/exhibitor-list.aspx',
+    responseType: 'json',
+    jsonPath: '[0]',
+    nameField: 'Name',
+    emailField: 'Email',
+    siteField: 'Site',
+    phoneField: null,
+    countryField: 'Country'
+  },
+  // Cabex
   cabex: {
     name: 'cabex',
-    url: 'https://www.cabex.ru/ru-RU/about/exhibitor-list',
     baseUrl: 'https://www.cabex.ru/ru-RU/about/exhibitor-list/exhibitorpopup.aspx?id=',
     mainPageUrl: 'https://www.cabex.ru/ru-RU/about/exhibitor-list.aspx',
     responseType: 'json',
@@ -48,10 +62,12 @@ const EXPO_CONFIGS = {
     nameField: 'Name',
     emailField: 'Email',
     siteField: 'Site',
-    phoneField: null
+    phoneField: null,
+    countryField: 'Country'
   },
+  // CleanExpo Moscow
   cleanexpo: {
-    name: 'CleanExpo Moscow',
+    name: 'cleanexpo',
     baseUrl: 'https://www.cleanexpo-moscow.ru/ru-RU/about/exhibitor-list/exhibitorpopup.aspx?id=',
     mainPageUrl: 'https://www.cleanexpo-moscow.ru/ru-RU/about/exhibitor-list.aspx',
     responseType: 'json',
@@ -59,8 +75,22 @@ const EXPO_CONFIGS = {
     nameField: 'Name',
     emailField: 'Email',
     siteField: 'Site',
-    phoneField: null
+    phoneField: null,
+    countryField: 'Country'
   },
+  // Parking Expo
+  parkingexpo: {
+    name: 'parkingexpo',
+    baseUrl: 'https://parking-expo.ru/ru-RU/about/exhibitor-list/exhibitorview.aspx?id=',
+    mainPageUrl: 'https://parking-expo.ru/ru-RU/about/exhibitor-list.aspx',
+    responseType: 'json',
+    jsonPath: '[0]',
+    nameField: 'Name',
+    emailField: 'Email',
+    siteField: 'Site',
+    phoneField: null,
+    countryField: 'Country'
+  }
 };
 
 // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ для HTML парсинга
@@ -94,8 +124,8 @@ function selectConfig() {
       if (!isNaN(num) && num >= 1 && num <= keys.length) {
         resolve(EXPO_CONFIGS[keys[num - 1]]);
       } else {
-        console.log('❌ Неверный выбор, используем CleanExpo');
-        resolve(EXPO_CONFIGS.cleanexpo);
+        console.log('❌ Неверный выбор, используем ingred');
+        resolve(EXPO_CONFIGS.ingred);
       }
     });
   });
@@ -122,11 +152,11 @@ async function parseExpo(config) {
       return;
     }
 
-    // Подготовка данных для CSV
-    let csvData = 'Ссылка;Название;Сайт;Телефон;Email\n';
+    // Подготовка данных для CSV с полем "Страна"
+    let csvData = 'Ссылка;Название;Сайт;Телефон;Email;Страна\n';
     let successCount = 0;
     let errorCount = 0;
-    let foundStats = { site: 0, phone: 0, email: 0 };
+    let foundStats = { site: 0, phone: 0, email: 0, country: 0 };
 
     // Обрабатываем каждую компанию
     for (let i = 0; i < idsToProcess.length; i++) {
@@ -140,31 +170,33 @@ async function parseExpo(config) {
       try {
         const companyDetails = await parseCompanyDetails(companyUrl, companyId, config);
 
-        // Добавляем данные в CSV
-        csvData += `"${companyUrl}";"${companyDetails.name}";"${companyDetails.site}";"${companyDetails.phone}";"${companyDetails.email}"\n`;
+        // Добавляем данные в CSV с полем "Страна"
+        csvData += `"${companyUrl}";"${companyDetails.name}";"${companyDetails.site}";"${companyDetails.phone}";"${companyDetails.email}";"${companyDetails.country}"\n`;
 
         // Статистика
         if (companyDetails.name) successCount++;
         if (companyDetails.site) foundStats.site++;
         if (companyDetails.phone) foundStats.phone++;
         if (companyDetails.email) foundStats.email++;
+        if (companyDetails.country) foundStats.country++;
 
         console.log(`   Название: ${companyDetails.name || 'нет'}`);
         console.log(`   Сайт: ${companyDetails.site || 'нет'}`);
         console.log(`   Телефон: ${companyDetails.phone || 'нет'}`);
         console.log(`   Email: ${companyDetails.email || 'нет'}`);
+        console.log(`   Страна: ${companyDetails.country || 'нет'}`);
 
         await delay(config.delayBetweenRequests || 1000);
 
       } catch (error) {
         console.error(`   ❌ Ошибка: ${error.message}`);
-        csvData += `"${companyUrl}";"ОШИБКА: ${companyId}";"ОШИБКА";"ОШИБКА";"ОШИБКА"\n`;
+        csvData += `"${companyUrl}";"ОШИБКА: ${companyId}";"ОШИБКА";"ОШИБКА";"ОШИБКА";""\n`;
         errorCount++;
       }
     }
 
     // Сохраняем результат
-    saveToFile(csvData, config.outputFile + '.csv', config.useAnsiEncoding !== false);
+    saveToFile(csvData, config.name + '.csv', config.useAnsiEncoding !== false);
     
     // Статистика
     console.log('\n' + '='.repeat(60));
@@ -177,6 +209,7 @@ async function parseExpo(config) {
     console.log(`🌐 Найдено сайтов: ${foundStats.site}`);
     console.log(`📞 Найдено телефонов: ${foundStats.phone}`);
     console.log(`✉️  Найдено email: ${foundStats.email}`);
+    console.log(`🌍 Найдено стран: ${foundStats.country}`);
     console.log('='.repeat(60));
 
   } catch (error) {
@@ -231,7 +264,8 @@ function parseJsonResponse(data, config) {
     name: getNestedValue(companyData, config.nameField) || '',
     site: getNestedValue(companyData, config.siteField) || '',
     email: getNestedValue(companyData, config.emailField) || '',
-    phone: config.phoneField ? getNestedValue(companyData, config.phoneField) || '' : ''
+    phone: config.phoneField ? getNestedValue(companyData, config.phoneField) || '' : '',
+    country: config.countryField ? getNestedValue(companyData, config.countryField) || '' : ''
   };
 }
 
@@ -241,7 +275,7 @@ function parseHtmlResponse(html, config) {
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
-  let name = '', site = '', email = '', phone = '';
+  let name = '', site = '', email = '', phone = '', country = '';
 
   // Ищем блок с контактами
   const contactBlock = config.htmlSelector 
@@ -275,6 +309,11 @@ function parseHtmlResponse(html, config) {
       const phoneEl = contactBlock.querySelector(config.phoneSelector);
       phone = phoneEl ? phoneEl.textContent.trim() : '';
     }
+
+    if (config.countrySelector) {
+      const countryEl = contactBlock.querySelector(config.countrySelector);
+      country = countryEl ? countryEl.textContent.trim() : '';
+    }
   }
 
   // Если не нашли по селекторам, ищем по регуляркам
@@ -302,11 +341,20 @@ function parseHtmlResponse(html, config) {
     }
   }
 
+  // Поиск страны по регулярке, если не нашли по селектору
+  if (!country) {
+    const countryMatch = text.match(/Страна:\s*([^\n]+)/i);
+    if (countryMatch) {
+      country = countryMatch[1].trim();
+    }
+  }
+
   return {
     name: name,
     site: site,
     phone: phone,
-    email: email
+    email: email,
+    country: country
   };
 }
 
@@ -349,7 +397,6 @@ function delay(ms) {
 function saveToFile(data, filename, useAnsi) {
   if (useAnsi) {
     try {
-      const iconv = require('iconv-lite');
       const buffer = iconv.encode(data, 'win1251');
       fs.writeFileSync(filename, buffer);
       console.log(`💾 Файл сохранен в кодировке Windows-1251`);

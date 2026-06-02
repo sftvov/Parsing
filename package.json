@@ -55,6 +55,7 @@
     "safer-buffer": "^2.1.2",
     "saxes": "^6.0.0",
     "symbol-tree": "^3.2.4",
+    "tesseract.js": "^7.0.0",
     "tough-cookie": "^4.1.4",
     "tr46": "^5.1.1",
     "universalify": "^0.2.0",

@@ -4,7 +4,13 @@ const readline = require('readline');
 
 // КОНФИГУРАЦИЯ
 const CONFIG = {
-  // === НАСТРОЙКИ ДЛЯ CLEANEXPO ===
+  ingred: {
+    name: 'ingred',
+    url: 'https://new.ingred.ru/ru-RU/about/exhibitor-list.aspx',
+    waitForSelector: '.participant_block',
+    idSelector: '.participant_block [data-exib]',
+    idAttribute: 'data-exib',
+  },
   cabex: {
     name: 'cabex',
     url: 'https://www.cabex.ru/ru-RU/about/exhibitor-list.aspx',

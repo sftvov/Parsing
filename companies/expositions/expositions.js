@@ -6,13 +6,14 @@ const iconv = require('iconv-lite');
 // КОНФИГУРАЦИЯ ПАРСЕРА
 const CONFIG = {
   // === ОБЯЗАТЕЛЬНЫЕ ПАРАМЕТРЫ ВЫСТАВКИ ===
-  BASE_URL: 'https://cpm-digital.ru/expositions/exposition/155-cpm-2026-spring.html',
-  OUTPUT_FILENAME: 'CPM2026.csv',
+  BASE_URL: '',
+  OUTPUT_FILENAME: '',
   
   // === НАСТРОЙКИ ПАРСИНГА (ЗНАЧЕНИЯ ПО УМОЛЧАНИЮ) ===
   LIST_SELECTOR: '#scroll_list .scroll_item a',
   NAME_SOURCE: 'title',
   CONTACTS_BLOCK: '#tab_contacts_flat',
+  COUNTRY_SELECTOR: '.company_img_country',  // Селектор для страны
   STRICT_CONTACTS_MODE: true,
   URL_FILTER: ['/company/'],
   
@@ -28,25 +29,9 @@ const CONFIG = {
   COMPANIES_PER_PAGE: 48,
   DELAY_BETWEEN_PAGES: 1500,
   DELAY_BETWEEN_COMPANIES: 1000,
-  MAX_PAGES: 20
+  MAX_PAGES: 30
 };
 
-
-const TEXTIL_LEG_PROM = {
-  BASE_URL: 'https://lk.textilexpo.ru/expositions/exposition/6707',
-  OUTPUT_FILENAME: 'TEXTIL_LEG_PROM-65.csv',
-};
-
-Object.assign(CONFIG, TEXTIL_LEG_PROM);
-
-const TEXTILE_SALON2026 = {
-  BASE_URL: 'https://catalog.textile-salon.ru/expositions/exposition/6710.html',
-  OUTPUT_FILENAME: 'TEXTILE-SALON2026.csv',
-};
-const CLIMATEXPO2026 = {
-  BASE_URL: 'https://catalog.climatexpo.ru/expositions/exposition/6614',
-  OUTPUT_FILENAME: 'CLIMATEXPO2026.csv',
-};
 const CPM2026 = {
   // === ОБЯЗАТЕЛЬНЫЕ ПАРАМЕТРЫ ВЫСТАВКИ ===
   BASE_URL: 'https://cpm-digital.ru/expositions/exposition/155-cpm-2026-spring.html',
@@ -72,6 +57,36 @@ const UPAK_CONFIG = {
         'upakexpo-online.ru'
     ]
 };
+const TEXTIL_LEG_PROM = {
+  BASE_URL: 'https://lk.textilexpo.ru/expositions/exposition/6707',
+  OUTPUT_FILENAME: 'TEXTIL_LEG_PROM-65.csv',
+};
+const TEXTILE_SALON2026 = {
+  BASE_URL: 'https://catalog.textile-salon.ru/expositions/exposition/6710.html',
+  OUTPUT_FILENAME: 'TEXTILE-SALON2026.csv',
+};
+const CLIMATEXPO2026 = {
+    BASE_URL: 'https://catalog.climatexpo.ru/expositions/exposition/6614',
+    OUTPUT_FILENAME: 'CLIMATEXPO2026.csv',
+};
+const SALON_DENTAL_EXPO = {
+  BASE_URL: 'https://salon.dental-expo.com/expositions/exposition/6659',
+  OUTPUT_FILENAME: 'SALON_DENTAL_EXPO.csv',
+};
+const INTEGRATION_DIGITAL = {
+  BASE_URL: 'https://integration-digital.ru/expositions/exposition/158',
+  OUTPUT_FILENAME: 'INTEGRATION_DIGITAL.csv',
+};
+const MINING_CTT = {
+  BASE_URL: 'https://catalog.mining-ctt.ru/expositions/exposition/6787',
+  OUTPUT_FILENAME: 'MINING_CTT.csv',
+};
+const CATALOG_CTT_EXPO = {
+  BASE_URL: 'https://catalog.ctt-expo.ru/expositions/exposition/6818',
+  OUTPUT_FILENAME: 'CATALOG_CTT_EXPO.csv',
+};
+
+Object.assign(CONFIG, CATALOG_CTT_EXPO);
 
 // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi;
@@ -88,6 +103,7 @@ async function parseExhibition() {
         console.log(`📁 Файл: ${CONFIG.OUTPUT_FILENAME}`);
         console.log(`🔍 Режим поиска: ${CONFIG.STRICT_CONTACTS_MODE ? 'СТРОГИЙ (только в блоке)' : 'РЕЗЕРВНЫЙ (по всей странице)'}`);
         console.log(`📍 Блок контактов: ${CONFIG.CONTACTS_BLOCK || 'не указан'}`);
+        console.log(`📍 Селектор страны: ${CONFIG.COUNTRY_SELECTOR || 'не указан'}`);
         console.log('='.repeat(60) + '\n');
 
         // Получаем список всех компаний
@@ -207,9 +223,11 @@ async function parseCompaniesPage(pageUrl) {
 
 // Обработка всех компаний
 async function processCompanies(companies) {
-    let csvData = 'Ссылка;Название;Сайт;Телефон;Email\n';
+    // Обновленный заголовок CSV с полем "Страна"
+    let csvData = 'Ссылка;Название;Сайт;Телефон;Email;Страна\n';
     let successCount = 0;
     let errorCount = 0;
+    let foundContacts = { site: 0, phone: 0, email: 0, country: 0 };
 
     for (let i = 0; i < companies.length; i++) {
         const company = companies[i];
@@ -219,13 +237,14 @@ async function processCompanies(companies) {
         try {
             const contacts = await parseCompanyContacts(company.url);
             
-            csvData += `"${company.url}";"${company.name}";"${contacts.site}";"${contacts.phone}";"${contacts.email}"\n`;
+            csvData += `"${company.url}";"${company.name}";"${contacts.site}";"${contacts.phone}";"${contacts.email}";"${contacts.country}"\n`;
             
             // Статистика по найденным контактам
             const found = [];
-            if (contacts.site) found.push('сайт');
-            if (contacts.phone) found.push('телефон');
-            if (contacts.email) found.push('email');
+            if (contacts.site) { found.push('сайт'); foundContacts.site++; }
+            if (contacts.phone) { found.push('телефон'); foundContacts.phone++; }
+            if (contacts.email) { found.push('email'); foundContacts.email++; }
+            if (contacts.country) { found.push('страна'); foundContacts.country++; }
             
             if (found.length > 0) {
                 console.log(`✅ Найдено: ${found.join(', ')}`);
@@ -239,7 +258,7 @@ async function processCompanies(companies) {
 
         } catch (error) {
             console.error(`   ❌ Ошибка: ${error.message}`);
-            csvData += `"${company.url}";"${company.name}";"ОШИБКА";"ОШИБКА";"ОШИБКА"\n`;
+            csvData += `"${company.url}";"${company.name}";"ОШИБКА";"ОШИБКА";"ОШИБКА";""\n`;
             errorCount++;
         }
     }
@@ -251,6 +270,11 @@ async function processCompanies(companies) {
     console.log(`✅ Успешно обработано: ${successCount}`);
     console.log(`❌ С ошибками: ${errorCount}`);
     console.log(`📊 Всего компаний: ${companies.length}`);
+    console.log('─'.repeat(60));
+    console.log(`🌐 Найдено сайтов: ${foundContacts.site}`);
+    console.log(`📞 Найдено телефонов: ${foundContacts.phone}`);
+    console.log(`✉️  Найдено email: ${foundContacts.email}`);
+    console.log(`🌍 Найдено стран: ${foundContacts.country}`);
     console.log('='.repeat(60));
 
     return csvData;
@@ -267,9 +291,20 @@ async function parseCompanyContacts(companyUrl) {
         const dom = new JSDOM(response.data);
         const document = dom.window.document;
 
-        let site = '', phone = '', email = '';
+        let site = '', phone = '', email = '', country = '';
         let searchSource = '';
         let searchText = '';
+
+        // НОВОЕ: Ищем страну из .company_img_country
+        const countryElement = CONFIG.COUNTRY_SELECTOR ? 
+            document.querySelector(CONFIG.COUNTRY_SELECTOR) : null;
+        
+        if (countryElement) {
+            country = countryElement.textContent.trim();
+            console.log(`   🌍 Страна: ${country}`);
+        } else {
+            console.log(`   🌍 Страна: не найдена`);
+        }
 
         // Ищем блок с контактами
         const contactsBlock = CONFIG.CONTACTS_BLOCK ? 
@@ -288,7 +323,7 @@ async function parseCompanyContacts(companyUrl) {
         } else if (CONFIG.STRICT_CONTACTS_MODE) {
             // Строгий режим: блок не найден, возвращаем пустые значения
             console.log(`   ⚠️  Блок ${CONFIG.CONTACTS_BLOCK} не найден (строгий режим)`);
-            return { site: '', phone: '', email: '' };
+            return { site: '', phone: '', email: '', country };
             
         } else {
             // Нестрогий режим: ищем по всей странице
@@ -302,11 +337,11 @@ async function parseCompanyContacts(companyUrl) {
             email = parsed.email;
         }
 
-        return { site, phone, email };
+        return { site, phone, email, country };
 
     } catch (error) {
         console.error(`Ошибка парсинга контактов:`, error.message);
-        return { site: '', phone: '', email: '' };
+        return { site: '', phone: '', email: '', country: '' };
     }
 }
 
@@ -448,42 +483,10 @@ function saveToCSV(data, filename) {
 }
 
 function saveEmptyCSV() {
-    const header = 'Ссылка;Название;Сайт;Телефон;Email\n';
+    const header = 'Ссылка;Название;Сайт;Телефон;Email;Страна\n';
     saveToCSV(header, CONFIG.OUTPUT_FILENAME);
     console.log(`💾 Создан пустой CSV файл: ${CONFIG.OUTPUT_FILENAME}`);
 }
-
-// ===== ЗАПУСК ПАРСЕРА =====
-
-// Способ 1: Использовать текущую конфигурацию из CONFIG
-// parseExhibition();
-
-// Способ 2: Использовать готовую конфигурацию
-// Object.assign(CONFIG, SKREPKA_CONFIG); // Для СКРЕПКА ЭКСПО
-// Object.assign(CONFIG, UPAK_CONFIG);    // Для UPAK EXPO
-// parseExhibition();
-
-// Способ 3: Запустить обе выставки последовательно
-async function parseAllExhibitions() {
-    console.log('🔄 Запускаем парсинг всех выставок...\n');
-    
-    // Парсим СКРЕПКА ЭКСПО
-    Object.assign(CONFIG, SKREPKA_CONFIG);
-    await parseExhibition();
-    
-    console.log('\n' + '='.repeat(60));
-    console.log('🔄 Переходим к следующей выставке...');
-    console.log('='.repeat(60) + '\n');
-    
-    // Парсим UPAK EXPO
-    Object.assign(CONFIG, UPAK_CONFIG);
-    await parseExhibition();
-}
-
-// Выберите способ запуска:
-// 1. parseExhibition();                    - с текущим CONFIG
-// 2. Object.assign(CONFIG, SKREPKA_CONFIG); parseExhibition(); - для СКРЕПКА
-// 3. parseAllExhibitions();                - обе выставки подряд
 
 // Запуск по умолчанию:
 parseExhibition();

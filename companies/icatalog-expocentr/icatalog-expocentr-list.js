@@ -3,7 +3,7 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // Параметры
-const page = '190a3ab6-1050-11f0-80ce-a0d3c1fab97f';
+const page = 'f33d045e-98f8-11ef-80ce-a0d3c1fab97f';
 const MAIN_URL = `https://icatalog.expocentr.ru/ru/exhibitions/${page}/list`;
 const OUTPUT_FILENAME = `icatalog-expocentr_${page}.csv`;
 const USE_ANSI_ENCODING = true;
@@ -30,8 +30,8 @@ async function parseCompanies() {
             return;
         }
         
-        // Подготовка данных для CSV
-        let csvData = 'Ссылка;Название;Сайт;Телефон;Email\n';
+        // Подготовка данных для CSV с полем "Страна"
+        let csvData = 'Ссылка;Название;Сайт;Телефон;Email;Страна\n';
         
         // Обрабатываем каждую компанию
         for (let i = 0; i < companyRows.length; i++) {
@@ -64,6 +64,7 @@ async function parseCompanies() {
                 let site = '';
                 let email = '';
                 let phone = '';
+                let country = '';
                 
                 // Ищем все dt элементы в блоке с информацией
                 const dtElements = companyDocument.querySelectorAll('dl.dl-horizontal dt');
@@ -75,16 +76,24 @@ async function parseCompanies() {
                     if (dd && dd.tagName === 'DD') {
                         const ddText = dd.textContent.trim();
                         
+                        // Ищем телефон
                         if (dtText.includes('Телефон') || dtText.includes('Phone')) {
                             phone = ddText;
-                        } else if (dtText.includes('Сайт') || dtText.includes('Website')) {
-                            // Извлекаем ссылку если есть
+                        }
+                        // Ищем сайт
+                        else if (dtText.includes('Сайт') || dtText.includes('Website')) {
                             const link = dd.querySelector('a');
                             site = link ? link.href : ddText;
-                        } else if (dtText.includes('E-mail') || dtText.includes('Email')) {
-                            // Извлекаем email из ссылки mailto
+                        }
+                        // Ищем email
+                        else if (dtText.includes('E-mail') || dtText.includes('Email')) {
                             const emailLink = dd.querySelector('a[href^="mailto:"]');
                             email = emailLink ? emailLink.href.replace('mailto:', '') : ddText;
+                        }
+                        // Ищем страну (НОВОЕ)
+                        else if (dtText.toLowerCase().includes('страна') || dtText.includes('Country')) {
+                            country = ddText.trim();
+                            console.log(`  🌍 Найдена страна: ${country}`);
                         }
                     }
                 }
@@ -108,17 +117,28 @@ async function parseCompanies() {
                     }
                 }
                 
+                // Поиск страны по регулярке, если не нашли через dt/dd
+                if (!country) {
+                    const pageText = companyDocument.body.textContent;
+                    const countryMatch = pageText.match(/Страна:\s*([^\n]+)/i);
+                    if (countryMatch) {
+                        country = countryMatch[1].trim();
+                        console.log(`  🌍 Найдена страна (альтернативно): ${country}`);
+                    }
+                }
+                
                 // Очищаем и форматируем данные
                 const cleanName = companyName.replace(/"/g, '""').trim();
                 const cleanSite = (site || '').replace(/"/g, '""').trim();
                 const cleanPhone = (phone || '').replace(/"/g, '""').trim();
                 const cleanEmail = (email || '').replace(/"/g, '""').trim();
+                const cleanCountry = (country || '').replace(/"/g, '""').trim();
                 
-                // Добавляем данные в CSV
-                csvData += `"${companyUrl}";"${cleanName}";"${cleanSite}";"${cleanPhone}";"${cleanEmail}"\n`;
+                // Добавляем данные в CSV с полем "Страна"
+                csvData += `"${companyUrl}";"${cleanName}";"${cleanSite}";"${cleanPhone}";"${cleanEmail}";"${cleanCountry}"\n`;
                 
                 // Выводим отладочную информацию
-                console.log(`  Найдено: Сайт: ${cleanSite || 'нет'}, Телефон: ${cleanPhone || 'нет'}, Email: ${cleanEmail || 'нет'}`);
+                console.log(`  Найдено: Сайт: ${cleanSite || 'нет'}, Телефон: ${cleanPhone || 'нет'}, Email: ${cleanEmail || 'нет'}, Страна: ${cleanCountry || 'нет'}`);
                 
                 // Небольшая задержка между запросами
                 await delay(2000);
@@ -129,13 +149,13 @@ async function parseCompanies() {
                 const linkElement = row.querySelector('td:first-child a');
                 const companyName = linkElement ? linkElement.textContent.trim() : `Компания ${i + 1}`;
                 const companyUrl = linkElement ? linkElement.href : '';
-                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"ОШИБКА";"ОШИБКА";"ОШИБКА"\n`;
+                csvData += `"${companyUrl}";"${companyName.replace(/"/g, '""')}";"ОШИБКА";"ОШИБКА";"ОШИБКА";""\n`;
             }
         }
         
         // Сохраняем результат
         saveToFile(csvData, OUTPUT_FILENAME);
-        console.log(`\nДанные сохранены в ${OUTPUT_FILENAME}`);
+        console.log(`\n✅ Данные сохранены в ${OUTPUT_FILENAME}`);
         
     } catch (error) {
         console.error('Произошла ошибка:', error.message);
@@ -154,12 +174,13 @@ function saveToFile(data, filename) {
             const iconv = require('iconv-lite');
             const buffer = iconv.encode(data, 'win1251');
             fs.writeFileSync(filename, buffer);
+            console.log(`💾 Файл сохранен в кодировке Windows-1251`);
         } else {
             // Добавляем BOM для правильного отображения кириллицы в Excel
             const BOM = '\uFEFF';
             fs.writeFileSync(filename, BOM + data, 'utf8');
+            console.log(`💾 Файл сохранен в кодировке UTF-8 с BOM`);
         }
-        console.log(`Файл успешно сохранен: ${filename}`);
     } catch (error) {
         console.error('Ошибка при сохранении файла:', error.message);
     }

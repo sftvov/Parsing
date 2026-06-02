@@ -3,10 +3,10 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // НАСТРОЙКИ ДЛЯ НОВОГО САЙТА
-const MAIN_URL = 'https://online.gefera.ru/info/TT25/catalog/?count=ALL';
+const MAIN_URL = 'https://online.gefera.ru/info/HEM26/catalog/?count=ALL';
 const COMPANY_LINK_SELECTOR = '.info-card.hoverable a';
 const CONTENT_SELECTOR = '.firm-detail-page';
-const OUTPUT_FILENAME = 'gefera-tcm25.csv';
+const OUTPUT_FILENAME = 'gefera-hem26.csv';
 const USE_ANSI_ENCODING = false;
 
 // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
@@ -27,8 +27,8 @@ async function parseCompanies() {
         const companyLinks = mainDom.window.document.querySelectorAll(COMPANY_LINK_SELECTOR);
         console.log(`Найдено ссылок: ${companyLinks.length}`);
         
-        // Подготовка данных для CSV
-        let csvData = 'Ссылка;Название;Сайт;Телефон;Email\n';
+        // Подготовка данных для CSV с новым полем "Страна"
+        let csvData = 'Ссылка;Название;Сайт;Телефон;Email;Страна\n';
         
         // Обрабатываем каждую ссылку
         for (let i = 0; i < companyLinks.length; i++) {
@@ -54,6 +54,14 @@ async function parseCompanies() {
                 let site = '';
                 let email = '';
                 let phone = '';
+                let country = '';
+                
+                // НОВОЕ: Ищем страну из .firm-detail-page .text-muted
+                const countryElement = companyDocument.querySelector('.firm-detail-page .text-muted');
+                if (countryElement) {
+                    country = countryElement.textContent.trim();
+                    console.log(`  🌍 Страна: ${country}`);
+                }
                 
                 // Если нашли контентный блок, ищем конкретные параграфы
                 if (contentBlock) {
@@ -114,19 +122,19 @@ async function parseCompanies() {
                     }
                 }
                 
-                // Добавляем данные в CSV
-                csvData += `"${companyUrl}";"${companyName}";"${site}";"${phone}";"${email}"\n`;
+                // Добавляем данные в CSV с новым полем "Страна"
+                csvData += `"${companyUrl}";"${companyName}";"${site}";"${phone}";"${email}";"${country}"\n`;
                 
                 // Выводим отладочную информацию
-                console.log(`  Найдено: ${site || 'нет сайта'}, ${phone || 'нет телефона'}, ${email || 'нет email'}`);
+                console.log(`  Найдено: ${site || 'нет сайта'}, ${phone || 'нет телефона'}, ${email || 'нет email'}, ${country || 'нет страны'}`);
                 
                 // Небольшая задержка между запросами
                 await delay(1000);
                 
             } catch (error) {
                 console.error(`Ошибка при обработке ${companyUrl}:`, error.message);
-                // Добавляем строку с ошибкой
-                csvData += `"${companyUrl}";"${companyName}";"ОШИБКА";"ОШИБКА";"ОШИБКА"\n`;
+                // Добавляем строку с ошибкой, включая пустое поле для страны
+                csvData += `"${companyUrl}";"${companyName}";"ОШИБКА";"ОШИБКА";"ОШИБКА";""\n`;
             }
         }
         
