@@ -3,7 +3,7 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // Параметры
-const page = 'f33d045e-98f8-11ef-80ce-a0d3c1fab97f';
+const page = 'f33d0468-98f8-11ef-80ce-a0d3c1fab97f';
 const MAIN_URL = `https://icatalog.expocentr.ru/ru/exhibitions/${page}/list`;
 const OUTPUT_FILENAME = `icatalog-expocentr_${page}.csv`;
 const USE_ANSI_ENCODING = true;

@@ -3,11 +3,11 @@ const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // НАСТРОЙКИ ДЛЯ НОВОГО САЙТА
-const MAIN_URL = 'https://online.gefera.ru/info/HEM26/catalog/?count=ALL';
+const MAIN_URL = 'https://online.gefera.ru/info/TT26/catalog/?count=ALL';
 const COMPANY_LINK_SELECTOR = '.info-card.hoverable a';
 const CONTENT_SELECTOR = '.firm-detail-page';
-const OUTPUT_FILENAME = 'gefera-hem26.csv';
-const USE_ANSI_ENCODING = false;
+const OUTPUT_FILENAME = 'gefera-TT26.csv';
+const USE_ANSI_ENCODING = true;
 
 // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
