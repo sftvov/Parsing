@@ -1,10 +1,13 @@
 const axios = require('axios');
+const { log } = require('console');
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
 
 // НАСТРОЙКИ ДЛЯ НОВОГО САЙТА
-const MAIN_URL = 'https://reg.huntfishexpo.ru/e-catalogue/2026/view';
-const OUTPUT_FILENAME = 'huntfish-expo.csv';
+
+let parseName = '2026a';
+const MAIN_URL = `https://reg.huntfishexpo.ru/e-catalogue/${parseName}/view`;
+const OUTPUT_FILENAME = `huntfish-expo-${parseName}.csv`;
 const USE_ANSI_ENCODING = true;
 
 // РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ
@@ -69,9 +72,11 @@ async function parseCompanies() {
             idExh = 37;
             
             // Формируем URL компании
-            const companyUrl = `https://reg.huntfishexpo.ru/e-catalogue/2025/view?idExh=${idExh}&action=detail&ident=${ident}`;
+            const companyUrl = `https://reg.huntfishexpo.ru/e-catalogue/${parseName}/view?idExh=${idExh}&action=detail&ident=${ident}`;
             
             console.log(`Обрабатываем [${i + 1}/${usersData.length}]: ${companyName}`);
+            
+                        console.log(companyUrl);
             
             try {
                 // Переходим на страницу компании
@@ -80,7 +85,7 @@ async function parseCompanies() {
                 const companyDocument = companyDom.window.document;
                 
                 // Ищем блок с контактами
-                const contactBlock = companyDocument.querySelector('.col-xs-6');
+                const contactBlock = companyDocument.querySelector('.content-block .col-xs-6');
                 let site = '';
                 let email = '';
                 let phone = '';
@@ -94,7 +99,7 @@ async function parseCompanies() {
                         const lowerText = text.toLowerCase();
                         
                         // Ищем сайт
-                        if (lowerText.includes('site') || lowerText.includes('website') || lowerText.includes('web')) {
+                        if (lowerText.includes('site') || lowerText.includes('website') || lowerText.includes('web') || lowerText.includes('сайт')) {
                             const siteMatch = text.match(URL_REGEX);
                             if (siteMatch && isValidWebsite(siteMatch[0], [])) {
                                 site = cleanWebsite(siteMatch[0]);
